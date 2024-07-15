@@ -34,7 +34,20 @@ class Deck:
         self.cards = cards
     
     def __str__(self) -> str:
-        return f"{self.cards}"
+        str_cards = ""
+        for card in self.cards[:-1]:
+            str_cards += f"{str(card)}, "
+        str_cards += f"and {str(self.cards[-1])}."
+        return str_cards
+    
+    def shuffle(self):
+        random.shuffle(self.cards)
+    
+    def draw(self, amountCards):
+        handCards = []
+        for i in range(amountCards):
+            handCards.append(self.cards[i])
+        return Hand(handCards)
 
 # define the standard deck of 52 playing cards
 playing_cards = []
@@ -43,9 +56,6 @@ for suit in suits:
         playing_cards.append(Card(rank, suit))
 
 standard_deck = Deck(playing_cards)
-
-for card in standard_deck.cards:
-    print(card)
 #
 
 class Hand:
@@ -58,3 +68,9 @@ class Hand:
     
     def isPair() -> bool:
         pass
+
+if __name__ == "__main__":
+    standard_deck.shuffle()
+    myHand = standard_deck.draw(8)
+    for card in myHand.cards:
+        print(card)
