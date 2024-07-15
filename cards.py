@@ -62,11 +62,22 @@ class Hand:
     def __init__(self, cards : list):
         self.cards = cards
         self.size = len(cards)
+        self.count = self.rankCount()
 
-    def findHighCard() -> Card:
-        pass
+    def rankCount(self) -> dict:
+        count = {}
+        for card in self.cards:
+            count.setdefault(card.rank, 0)
+            count[card.rank] += 1
+        return count
+
+    def findHighCard(self) -> Card:
+        rank = max(self.count)
+        for card in self.cards:
+            if card.rank == rank:
+                return card
     
-    def isPair() -> bool:
+    def isPair(self) -> bool:
         pass
 
 if __name__ == "__main__":
@@ -74,3 +85,4 @@ if __name__ == "__main__":
     myHand = standard_deck.draw(8)
     for card in myHand.cards:
         print(card)
+    print(f"Your High Card is {myHand.findHighCard()}.")
